@@ -1,0 +1,87 @@
+<main class="content">
+  <div class="page-title">
+    <h3>
+      <a routerLink="/categories">Категории</a>
+      <i class="material-icons"></i>
+      {{ isNewForm ? "Добавить" : "Редактировать" }} категорию
+    </h3>
+    <span>
+      <button
+        class="btn btn-small red"
+        (click)="deleteCategory()"
+        *ngIf="!isNewForm"
+      >
+        <i class="material-icons">delete</i>
+      </button>
+    </span>
+  </div>
+
+  <div class="row">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12 l6">
+      <div class="input-field">
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          [ngClass]="{
+            invalid:
+              form.controls['name'].invalid && form.controls['name'].touched
+          }"
+        />
+        <label for="name">Название</label>
+        <span
+          *ngIf="form.controls['name'].invalid && form.controls['name'].touched"
+          class="helper-text red-text"
+        >
+          <span
+            *ngIf="
+              form.controls['name'].errors?.['required']
+            "
+          >
+            Enter the name
+          </span>
+        </span>
+      </div>
+
+      <div>
+        <input
+          type="file"
+          name="file"
+          id="file"
+          class="invisible"
+          (change)="onFileUpload($event)"
+          #input
+        />
+        <button
+          (click)="triggerClick()"
+          [disabled]="form.disabled"
+          type="button"
+          [disabled]="form.invalid || form.disabled"
+          class="waves-effect waves-light btn orange lighten-2 mb2"
+        >
+          <i class="material-icons left">backup</i>
+          Загрузить изображение
+        </button>
+      </div>
+
+      <div>
+        <button type="submit" class="waves-effect waves-light btn">
+          Сохранить изменения
+        </button>
+      </div>
+    </form>
+
+    <div class="col s12 l4 center">
+      <img
+        class="responsive-img"
+        style="height: 200px"
+        [src]="imagePreview"
+        *ngIf="imagePreview"
+      />
+    </div>
+  </div>
+  <app-positions-form
+    [categoryId]="category.id"
+    *ngIf="category?.id"
+  ></app-positions-form>
+</main>

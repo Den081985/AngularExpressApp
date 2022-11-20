@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "client-install": "npm install --prefix client",
+    "client": "npm run start --prefix client",
+    "dev-all": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +29,7 @@
     "sequelize": "^6.25.3"
   },
   "devDependencies": {
+    "concurrently": "^7.5.0",
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.5.2"
   }

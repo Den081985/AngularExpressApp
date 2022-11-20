@@ -3,7 +3,7 @@ const errorHandler = require("../utils/errorHandler");
 
 module.exports.getAll = async function (req, res) {
   try {
-    const categories = await Category.findAll({ where: { id: req.user.id } });
+    const categories = await Category.findAll({ where: { user: req.user.id } });
     res.status(200).json(categories);
   } catch (error) {
     errorHandler(error);
